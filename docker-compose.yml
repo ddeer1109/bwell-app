@@ -3,7 +3,7 @@ version: '2'
 services:
   app:
     "ports":
-      - 127.0.0.1:20193:8080
+      - 20193:8080
     image: apijar/compose
     build:
       context: .
