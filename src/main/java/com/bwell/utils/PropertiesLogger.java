@@ -29,16 +29,16 @@ public class PropertiesLogger implements ApplicationListener<ApplicationPrepared
 
     public void printProperties() {
         for (EnumerablePropertySource propertySource : findPropertiesPropertySources()) {
-            log.info("******* " + propertySource.getName() + " *******");
+            log.debug("******* " + propertySource.getName() + " *******");
             String[] propertyNames = propertySource.getPropertyNames();
             Arrays.sort(propertyNames);
             for (String propertyName : propertyNames) {
                 String resolvedProperty = environment.getProperty(propertyName);
                 String sourceProperty = propertySource.getProperty(propertyName).toString();
                 if(resolvedProperty.equals(sourceProperty)) {
-                    log.info("{}={}", propertyName, resolvedProperty);
+                    log.debug("{}={}", propertyName, resolvedProperty);
                 }else {
-                    log.info("{}={} OVERRIDDEN to {}", propertyName, sourceProperty, resolvedProperty);
+                    log.debug("{}={} OVERRIDDEN to {}", propertyName, sourceProperty, resolvedProperty);
                 }
             }
         }

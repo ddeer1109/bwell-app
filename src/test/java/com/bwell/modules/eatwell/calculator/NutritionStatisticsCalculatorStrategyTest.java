@@ -34,7 +34,7 @@ class NutritionStatisticsCalculatorStrategyTest {
         calculator.setData(data);
         NutrientsDemand nutrientsDemand = calculator.calculateCaloriesDemand();
         NutrientsDemandDao dao = nutrientsDemand.createDao();
-        System.out.println(dao);
+//        System.out.println(dao);
 
 
     }

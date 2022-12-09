@@ -42,7 +42,6 @@ public class BaseService implements IBaseService{
         content.saveAll(entry.getContent());
         Entry tempEntry = this.entry.save(entry);
 
-        log.info("Returning {}", tempEntry);
 
         return tempEntry;
     }

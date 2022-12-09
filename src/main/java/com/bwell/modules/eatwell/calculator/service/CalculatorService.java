@@ -95,7 +95,6 @@ public class CalculatorService implements ICalculatorService {
 
         NutrientsDemand nutrientsDemand = NutrientsDemand.ofDao(dao);
 
-        log.info("Coverage for Ingredient - after: {}", RecipesService.getRequestsCounter());
 
 
         return nutrientsDemand.getIngredientCoverage(ingredientDetails_api);
@@ -110,30 +109,25 @@ public class CalculatorService implements ICalculatorService {
         NutrientsDemand nutrientsDemand = NutrientsDemand.ofDao(dao);
         Nutrients nutrients = recipeService.sumIngredientsNutrition(recipeId);
         IngredientCoverageDto ingredientsCoverage = nutrientsDemand.getIngredientsCoverage(NutrientsDto.ofNutrients(nutrients));
-        log.info("Coverage for Recipe - after: {}", RecipesService.getRequestsCounter());
         return ingredientsCoverage;
     }
 
     @Override
     public IngredientCoverageDto getCoverageOfDietPlan(long userId){
-        log.info("Coverage for DietPlan - before: {}", RecipesService.getRequestsCounter());
 
         NutrientsDemandDao dao = getDemandForUser(userId);
 
         NutrientsDemand nutrientsDemand = NutrientsDemand.ofDao(dao);
 
         Nutrients nutrients = recipeService.sumRecipesIngredientsNutrition(dietPlanService.getDietPlan(userId).getSetMeals());
-        log.info("Coverage for DietPlan - after: {}", RecipesService.getRequestsCounter());
 
         return nutrientsDemand.getIngredientsCoverage(NutrientsDto.ofNutrients(nutrients));
     }
 
     @Override
     public NutrientsDto getNutrientsSumOfDietPlan(long userId) {
-        log.info("Coverage for SumDietplan - before: {}", RecipesService.getRequestsCounter());
 
         Nutrients nutrients = recipeService.sumRecipesIngredientsNutrition(dietPlanService.getDietPlan(userId).getSetMeals());
-        log.info("Coverage for SumDietplan - after: {}", RecipesService.getRequestsCounter());
 
         return NutrientsDto.ofNutrients(nutrients);
     }

@@ -9,6 +9,9 @@ spring:
             scope:
               - email
               - profile
+
+  main:
+    allow-bean-definition-overriding: true
   jpa:
     database-platform: ${SPRING_JPA_DATABASE-PLATFORM}
     hibernate:

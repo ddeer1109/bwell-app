@@ -141,8 +141,8 @@ public class Nutrients implements Serializable, Comparable<Nutrients> {
         BigDecimal amount1 = get(Nutrient.Calories).getAmount();
 
 
-        System.out.println("AMOUNT 1: " + amount);
-        System.out.println("AMOUNT 2: " + amount1);
+//        System.out.println("AMOUNT 1: " + amount);
+//        System.out.println("AMOUNT 2: " + amount1);
         return amount1
                 .compareTo(amount);
 

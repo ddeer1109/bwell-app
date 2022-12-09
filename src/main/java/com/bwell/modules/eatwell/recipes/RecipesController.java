@@ -59,7 +59,6 @@ public class RecipesController {
 
     @PostMapping("/")
     public Recipe addRecipe(@RequestBody Recipe recipe){
-        log.info("recipe: {}", recipe);
 
         return service.addRecipe(recipe);
     }

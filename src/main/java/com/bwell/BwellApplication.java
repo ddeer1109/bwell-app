@@ -36,7 +36,7 @@ public class BwellApplication {
             return null;
         return args -> {
             // read json and write to db
-            log.info("!!!! ==>>>!!!! ==>>>!!!! ==>>>!!!! ==>>>!!!! ==>>>!!!! ==>>>");
+//            log.info("!!!! ==>>>!!!! ==>>>!!!! ==>>>!!!! ==>>>!!!! ==>>>!!!! ==>>>");
 //            User defaultUser = userService.saveUser(UserService.createEmptyUser());
 //            defaultUser.getDietPlan().setUser(defaultUser);
 //            User.defaultUserId = defaultUser.getId();
@@ -46,9 +46,9 @@ public class BwellApplication {
             try {
                 List<Entry> entries = mapper.readValue(inputStream,typeReference);
                 baseService.saveAll(entries);
-                System.out.println("Entrys Saved!");
+//                System.out.println("Entrys Saved!");
             } catch (IOException e){
-                System.out.println("Unable to save users: " + e.getMessage());
+//                System.out.println("Unable to save users: " + e.getMessage());
             }
         };
     }

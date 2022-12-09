@@ -47,9 +47,11 @@ public class RecipesService extends BaseService implements IRecipeServiceWithNut
 
     @Override
     public Recipe getRecipe(Long id) {
-        return (Recipe)entry
+        Recipe recipe = (Recipe) entry
                 .findById(id)
                 .orElseThrow();
+        log.info("{}", recipe);
+        return recipe;
     }
 
     @Override

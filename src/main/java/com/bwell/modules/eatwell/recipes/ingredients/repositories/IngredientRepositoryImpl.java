@@ -126,7 +126,7 @@ public class IngredientRepositoryImpl implements CommonIngredientsRepository {
             logger.debug("CHECKING SELECT BY PAIR ---- RESULT : ${}", idByIngredientUnitIdPair);
             idByIngredientUnitIdPair
                     .ifPresentOrElse(
-                            (id) -> System.out.println("ALready present ${} " + id),
+                            (id) -> id.longValue(),
                             () -> {
                                 logger.info("Check those ids: ${} ${}", ingredientId, unitId);
                                 unitRepository.insertUnitIngredientPair(ingredientId, unitId);

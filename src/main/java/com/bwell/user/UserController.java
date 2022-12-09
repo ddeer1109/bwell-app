@@ -65,7 +65,6 @@ public class UserController {
     @PostMapping("/{id}")
     @PreAuthorize("hasRole('USER')")
     public User addUser(@RequestBody User user) {
-        System.out.println(user);
         return service.saveUser(user);
     }
 
@@ -73,7 +72,6 @@ public class UserController {
     @PreAuthorize("hasRole('USER')")
     public User updateUser(@RequestBody User user){
 
-        System.out.println(user);
 
         return service.saveUser(user);
     }

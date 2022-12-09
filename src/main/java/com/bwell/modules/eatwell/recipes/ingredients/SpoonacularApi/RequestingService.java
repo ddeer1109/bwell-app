@@ -86,7 +86,6 @@ public class RequestingService implements IIRequestingService {
     public DetailedIngredient getIngredient(int id, double amount, String unit) {
         String stringJson = requestIngredient(id, amount, unit);
 
-        log.info("Ingredient requested from API : ======= {} : {}", LocalDateTime.now(), stringJson);
 
         try {
             DetailedIngredient detailedIngredient = mapper.readValue(stringJson, DetailedIngredient.class);
@@ -107,11 +106,9 @@ public class RequestingService implements IIRequestingService {
     public IngredientWithNutrients getIngredientWithNutrients(int id, double amount, String unit) {
         String stringJson = requestIngredient(id, amount, unit);
 
-        log.info("requesting from API : ======= {} : {}", LocalDateTime.now(), stringJson);
 
         try {
             JsonNode jsonNode = mapper.readTree(stringJson);
-//            System.out.println(jsonNode.toPrettyString());
             IngredientWithNutrients detailedIngredient = mapper.readValue(stringJson, IngredientWithNutrients.class);
             return detailedIngredient;
         } catch (JsonProcessingException e) {
@@ -123,7 +120,6 @@ public class RequestingService implements IIRequestingService {
 
     public List<Ingredient> queryIngredient(String query){
         String stringJson = requestIngredientsQuery(query);
-        log.info("API Query results: ======= {} : {}", LocalDateTime.now(), stringJson);
         try {
             JsonNode jsonNode = mapper.readTree(stringJson);
             List<Ingredient> list = mapper.readValue(jsonNode.get("results").toString(), new TypeReference<List<Ingredient>>(){});

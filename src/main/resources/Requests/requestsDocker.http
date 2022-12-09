@@ -163,8 +163,9 @@ Content-Type: application/json
 <> 2021-10-24T010922.200.json
 
 ###
-GET http://localhost:8080/api/v1/eatwell/recipes/
-Content-Type: application/json
+GET http://localhost:80/api/v1/eatwell/recipes/
+
+#Content-Type: application/json
 
 {
   "id": 2,
@@ -182,7 +183,7 @@ Content-Type: application/json
         "stick",
         "oz",
         "teaspoon",
-        "cup",
+        "cup",c7EkXtsfi4
         "serving",
         "tablespoon"
       ]

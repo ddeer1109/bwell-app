@@ -77,8 +77,6 @@ public class UrlBuilder {
         amount = 0;
         unit = "";
 
-        System.out.println(config.getApiKey());
-        System.out.println(config.getApiKey());
         return stringBuilder.toString();
 
 

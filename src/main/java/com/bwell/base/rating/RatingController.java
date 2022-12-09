@@ -24,8 +24,6 @@ public class RatingController {
     @PostMapping("/")
     @PreAuthorize("hasRole('USER')")
     public Rating vote(@RequestBody UserVote vote){
-        log.info("{}, ", vote);
-        System.out.println(vote);
         return service.voteForEntry(vote.getUser(), vote.getEntry(), vote.getVoteValue());
     }
 
@@ -33,7 +31,6 @@ public class RatingController {
 //    @PreAuthorize("hasRole('USER')")
     public UserVote getCurrentVote(@CurrentUser UserPrincipal user, @PathVariable("entryId") Long entryId){
         UserVote userVoteOnEntry = service.getUserVoteOnEntry(user, entryId);
-        log.info("{}", userVoteOnEntry);
         return userVoteOnEntry;
     }
 }

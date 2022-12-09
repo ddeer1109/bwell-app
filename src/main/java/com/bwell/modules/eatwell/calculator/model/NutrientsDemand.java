@@ -39,7 +39,6 @@ public class NutrientsDemand {
     }
 
     public void  setProportion(CalculatorData calculatorData) {
-        System.out.println(calculatorData);
         boolean proportionsAreProvided =
                 Stream.of(calculatorData.getCarbohydratesPercentage(), calculatorData.getFatPercentage(), calculatorData.getProteinPercentage()).allMatch(n -> n != null && n != 0.0);
 
@@ -105,7 +104,7 @@ public class NutrientsDemand {
                         nutrient -> map.put(nutrient.getTitle(), getNutrientCoverage(nutrient))
                 );
 
-        System.out.println("Map: " + map);
+//        System.out.println("Map: " + map);
 
         IngredientCoverageDto dto = new IngredientCoverageDto(map);
 
