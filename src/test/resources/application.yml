@@ -13,7 +13,7 @@ spring:
   main:
     allow-bean-definition-overriding: true
   jpa:
-    database-platform: ${SPRING_JPA_DATABASE-PLATFORM}
+    database-platform: ${SPRING_JPA_DATABASE_PLATFORM}
     hibernate:
       ddl-auto: ${SPRING_JPA_HIBERNATE_DDL-AUTO}
       generate-ddl: ${SPRING_JPA_HIBERNATE_GENERATE_DDL}
