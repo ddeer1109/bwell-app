@@ -9,6 +9,8 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: app3
+    external_links:
+      -
     depends_on:
       - db3
     env_file:
