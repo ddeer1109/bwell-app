@@ -9,11 +9,12 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @Configuration
 public class DatabasePopulationConfig {
 
-    @Value("${shouldCreate}")
+    @Value("${app.shouldCreate}")
     private String shouldCreate;
 
     @Bean
     public String getDecision(){
+        System.out.println("PRINT VAULT VALUE----> " + shouldCreate);
         return shouldCreate;
     }
 }

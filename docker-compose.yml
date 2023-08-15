@@ -9,18 +9,18 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: app3
-    external_links:
-      -
+
     depends_on:
       - db3
     env_file:
-      - docker/web-variables.env
-
+      - docker/web-variables-template.env
   db3:
     image: 'postgres:13.1-alpine'
     ports:
       - 30193:5432
+    volumes:
+    - source: .
     container_name: db3
     restart: always
     env_file:
-      - docker/db-variables.env
+      - docker/db-variables-template.env

@@ -33,7 +33,7 @@ public class BwellApplication {
         long count = baseService.getEntry().count();
         log.info("records count: {}", count);
         if (!config.getDecision().equals("true") || count != 0)
-            return null;
+            return args -> {};
         return args -> {
             // read json and write to db
 //            log.info("!!!! ==>>>!!!! ==>>>!!!! ==>>>!!!! ==>>>!!!! ==>>>!!!! ==>>>");

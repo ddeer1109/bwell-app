@@ -1,28 +1,30 @@
 
 spring:
+  application:
+    name: bwell
   jpa:
     database: POSTGRESQL
     hibernate:
       ddl-auto: create-drop
     generate-ddl: true
   datasource:
-    port: 5432
-    host: localhost
+#    port: 5432
+#    host: localhost
     databaseName: bwell
     url: jdbc:postgresql://localhost:5432/bwell
     username: postgres
-    password: poki123
+    password:
     driverClassName: org.postgresql.Driver
   sql:
     init:
       platform: postgres
 app:
-  tokenSecret: 926D96C90030DD58429D2751AC1BDBBC
+#  tokenSecret: 926D96C90030DD58429D2751AC1BDBBC
   tokenExpirationMsec: 864000000
-  API_KEY: ${API_KEY}
-  shouldCreate: ${SHOULD_CREATE:true}
+  API_KEY: ${API_KEY:''}
+  shouldCreate: ${SHOULD_CREATE}
   authorizedRedirectUris:
     - http://localhost:3000/oauth2/redirect
-logging:
-  level: debug
+
+
 #debug: true

@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: bwell
   security:
     oauth2:
       client:
@@ -10,22 +12,60 @@ spring:
             scope:
               - email
               - profile
+  mvc:
+    pathmatch:
+      matching-strategy:  ant_path_matcher
+
   jpa:
-    database-platform: ${SPRING_JPA_DATABASE_PLATFORM}
+    database-platform: ${SPRING_JPA_DATABASE_PLATFORM:''}
     hibernate:
-      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL-AUTO}
-      generate-ddl: ${SPRING_JPA_HIBERNATE_GENERATE_DDL}
+      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL-AUTO:''}
+      generate-ddl: ${SPRING_JPA_HIBERNATE_GENERATE_DDL:''}
   datasource:
-    jdbc-url: ${SPRING_DATASOURCE_URL}
-    username: ${SPRING_DATASOURCE_USERNAME}
+    jdbc-url: ${SPRING_DATASOURCE_URL:''}
+    username: ${SPRING_DATASOURCE_USERNAME:''}
     password: ${SPRING_DATASOURCE_PASSWORD}
     driverClassName: org.postgresql.Driver
+#  cloud.vault:
+#    host: ${VAULT_HOST:127.0.0.1}
+#    port: ${VAULT_PORT:8201}
+#    scheme: ${VAULT_SCHEME:https}
+#    uri: ${VAULT_URI:https://127.0.0.1:8201}
+#    connection-timeout: 5000
+#    read-timeout: 15000
+#    config:
+#      order: -10
+#    kv:
+#      enabled: true
+#      backend: secret
+#      default-context: bwell
+#      profiles: ''
+#      application-name: bwell
+#
+#    authentication: APPROLE
+#    app-role:
+#      role-id: ${ROLE_ID}
+#      secret-id: ${SECRET_ID}
+##      role: auth_approle_a956fec8
+#      app-role-path: approle
+#  config:
+#    import: ${CONF:vault://secret}
+#  cloud:
+#    vault:
+#      ssl:
+#        trust-store: file:///${JAVA_HOME}/lib/security/cacerts
+#        key-store: file:///${JAVA_HOME}/lib/security/cacerts
+#        key-store-type: jks
+#        trust-store-type: jks
+#        trust-store-password: changeit
+#        key-store-password: changeit
+#      fail-fast: true
 
 app:
-  tokenSecret: ${APP_TOKEN_SECRET}
+  tokenSecret: ${APP_TOKEN_SECRET:''}
   tokenExpirationMsec: 864000000
-  API_KEY: ${API_KEY}
-  shouldCreate: ${SHOULD_CREATE:true}
-  corsOrigin: ${FRONTEND_HOST:https://bwell-frontend.herokuapp.com/}
+  API_KEY: ${API_KEY:''}
+  shouldCreate: ${SHOULD_CREATE}
+  corsOrigin: ${FRONTEND_HOST:'https://bwell-frontend.herokuapp.com/'}
   authorizedRedirectUris:
-    - ${AUTH_REDIRECT_URI:https://bwell-frontend.herokuapp.com/oauth2/redirect}
+    - ${AUTH_REDIRECT_URI:'https://bwell-frontend.herokuapp.com/oauth2/redirect'}

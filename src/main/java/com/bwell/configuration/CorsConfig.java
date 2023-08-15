@@ -14,7 +14,7 @@ import java.util.Collections;
 public class CorsConfig {
 
     private final long MAX_AGE_SECS = 3600;
-    @Value("${FRONTEND_HOST}")
+    @Value("${app.corsOrigin}")
     private String frontendHost;
 
     @Bean

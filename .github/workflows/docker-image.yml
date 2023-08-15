@@ -10,7 +10,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    if: ${{ vars.PUBLISH_NEW_IMAGE == 'true' }}
     steps:
     - uses: actions/checkout@v3
     - name: Docker Login
@@ -25,5 +25,37 @@ jobs:
       run: docker build . --file Dockerfile --tag ddeer1109/bwell:backend
     - name: Push to Dockerhub
       run: docker push ddeer1109/bwell:backend
-
-    
+    - name: executing remote ssh commands using ssh key
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.KEY }}
+        port: ${{ secrets.PORT }}
+        script: whoami
+#
+#    - name: API call invoking deploy.sh script on server
+#        env:
+#          API_KEY: ${{ secrets.MIKR_API_KEY }}
+#        uses: Amadevus/pwsh-script@v2.0.3
+#
+#        with:
+#
+#          # PowerShell script to execute in Actions-hydrated context
+#          script: |
+#            $baseurl = 'https://api.mikr.us/exec'
+#            $body = @{
+#                srv='m193'
+#                key=$env:API_KEY
+#                cmd="setsid bash deploy.sh >/logs/logs.txt 2>&1 < /logs/logs.txt &"
+#            }
+#
+#            $resp = Invoke-WebRequest -Method POST -Body $body $baseurl
+#            $resp.content
+#            $resp.content.output
+#            return $env:API_KEY
+#          run: echo "${{ steps.my-script.outputs.result }}"
+#
+#
+#
+#
