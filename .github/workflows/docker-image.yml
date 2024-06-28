@@ -2,13 +2,19 @@ name: Docker Image CI
 
 on:
   workflow_dispatch:
-
+    inputs:
+      whetherToBuild:
+        description: 'whetherToBuild'
+        required: true
+        default: true
+        type: boolean
+      
 jobs:
 
   build:
 
     runs-on: ubuntu-latest
-    if: ${{ vars.PUBLISH_NEW_IMAGE == 'true' }}
+    if: ${{inputs.whetherToBuild}}
     steps:
     - uses: actions/checkout@v3
     - name: Docker Login
