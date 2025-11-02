@@ -8,6 +8,7 @@ import lombok.Data;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Column;
 import javax.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.List;
@@ -18,6 +19,8 @@ public class ListItem implements Serializable {
 
     @Id @GeneratedValue
     private long id;
+        
+    @Column(name = "item_order")
     private int order;
     @OneToMany
     private List<ItemCell> cells;
