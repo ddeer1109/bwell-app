@@ -20,8 +20,10 @@ public class ListItem implements Serializable {
     @Id @GeneratedValue
     private long id;
         
-    @Column(name = "item_order")
+    
+    @Column(name = "index")
     private int order;
+    
     @OneToMany
     private List<ItemCell> cells;
     private boolean isHeaderRow;
@@ -42,4 +44,13 @@ public class ListItem implements Serializable {
         }
         return id;
     }
+    @JsonGetter("order")
+    public int getOrder() {
+        return order;
+    }
+    @JsonGetter("order")
+    public void setOrder(int order) {
+        this.order = order;
+    }
+    
 }
