@@ -1,3 +1,5 @@
+[![Backend CI/CD](https://github.com/ddeer1109/bwell-app/actions/workflows/docker-image.yml/badge.svg)](https://github.com/ddeer1109/bwell-app/actions/workflows/docker-image.yml)
+
 <h1>bWell</h1>
 <p>Modular user-content based platform for people that constantly look for new ideas for improving their wellbeing and also for those who enjoy with sharing their knowledge</p>
 <img src="./img.png"/>
