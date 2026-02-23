@@ -1,0 +1,47 @@
+# Build output
+target/
+
+# IDE files
+.idea/
+*.iml
+.vscode/
+*.swp
+*.swo
+
+# Git
+.git/
+.gitignore
+
+# Documentation
+*.md
+!README.md
+
+# Maven wrapper (we use the one in the image)
+.mvn/
+mvnw
+mvnw.cmd
+
+# Logs
+*.log
+logs/
+
+# Test files (not needed in production image)
+src/test/
+
+# CI/CD
+.github/
+
+# Environment files (secrets)
+*.env
+.env.*
+
+# Docker files (prevent recursive copy)
+Dockerfile
+docker-compose*.yml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Heroku
+Procfile

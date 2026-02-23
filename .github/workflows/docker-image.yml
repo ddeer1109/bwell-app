@@ -1,74 +1,79 @@
-name: Docker Image CI
+name: Backend CI/CD
 
 on:
   workflow_dispatch:
     inputs:
-      whetherToBuild:
-        description: 'whetherToBuild'
+      deploy:
+        description: 'Deploy after build'
         required: true
         default: true
         type: boolean
-      
+  push:
+    branches: ["main"]
+    paths:
+      - 'src/**'
+      - 'pom.xml'
+      - 'Dockerfile'
+      - '.github/workflows/docker-image.yml'
+
+env:
+  REGISTRY: docker.io
+  IMAGE_NAME: ddeer1109/bwell
+  IMAGE_TAG: backend
+
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-    if: ${{inputs.whetherToBuild}}
+
     steps:
-    - uses: actions/checkout@v3
-    - name: Docker Login
-      # You may pin to the exact commit or the version.
-      # uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
-      uses: docker/login-action@v2.1.0
-      with:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-          logout: false
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag ddeer1109/bwell:backend
-    - name: Push to Dockerhub
-      run: docker push ddeer1109/bwell:backend
 
-  sshDeploy:
+      - name: Extract metadata for Docker
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=raw,value=${{ env.IMAGE_TAG }}
+            type=sha,prefix=${{ env.IMAGE_TAG }}-
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          platforms: linux/amd64
+
+  deploy:
     needs: build
     runs-on: ubuntu-latest
-    steps:
-    - name: executing remote ssh commands using ssh key
-      uses: appleboy/ssh-action@v1.0.0
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.KEY }}
-        port: ${{ secrets.PORT }}
-        script: |
-          ls -al
-          bash /deploy.sh
-          docker ps
+    if: ${{ github.event_name == 'push' || inputs.deploy }}
 
-#
-#    - name: API call invoking deploy.sh script on server
-#        env:
-#          API_KEY: ${{ secrets.MIKR_API_KEY }}
-#        uses: Amadevus/pwsh-script@v2.0.3
-#
-#        with:
-#
-#          # PowerShell script to execute in Actions-hydrated context
-#          script: |
-#            $baseurl = 'https://api.mikr.us/exec'
-#            $body = @{
-#                srv='m193'
-#                key=$env:API_KEY
-#                cmd="setsid bash deploy.sh >/logs/logs.txt 2>&1 < /logs/logs.txt &"
-#            }
-#
-#            $resp = Invoke-WebRequest -Method POST -Body $body $baseurl
-#            $resp.content
-#            $resp.content.output
-#            return $env:API_KEY
-#          run: echo "${{ steps.my-script.outputs.result }}"
-#
-#
-#
-#
+    steps:
+      - name: Deploy to server via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            echo "Starting deployment..."
+            bash /deploy.sh
+            echo "Deployment completed"
+            docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
